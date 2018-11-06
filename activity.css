@@ -1,0 +1,127 @@
+/*
+Copyright (C) 2018 Alkis Georgopoulos <alkisg@gmail.com>.
+SPDX-License-Identifier: CC-BY-SA-4.0
+*/
+* {
+  box-sizing: border-box;
+}
+
+.fhp /* Flex Horizontal Parent */
+{
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.fhpc /* Flex Horizontal Parent with Centered childs */
+{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.fhc /* Flex Horizontal Child */
+{
+  flex: 1;
+}
+
+.fvp /* Flex Vertical Parent */
+{
+  display: flex;
+  align-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.fvc /* Flex Vertical Child */
+{
+  flex: 1;
+}
+
+.hidden {
+  display: none;
+}
+
+input, select, range, p {
+  font-size: 1em;
+}
+
+body {
+  background: rgb(10,37,91) url('resource/body.jpg') repeat;
+  color: white;
+  font-size: 10px;
+  margin: 0;
+}
+
+#topdiv {
+  align-content: space-around;
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  height: 36em;
+  width: 64em;
+  text-align: center;
+}
+
+#sidediv {
+  background-color: rgba(220,220,100,0.9);
+  border: 0.5em solid rgba(100,100,50,0.25);
+  border-radius: 1em;
+  height: 34em;
+  width: 15em;
+  padding: 1em;
+}
+
+.menuicon {
+  width: 4em;
+  height: 4em;
+  cursor: pointer;
+  border: 0.2em solid transparent;
+}
+
+.menuicon:hover {
+  border-: 0.2em solid skyblue;
+  -webkit-filter: brightness(120%) contrast(1.2);
+  filter: brightness(120%) contrast(1.2);
+}
+
+.label {
+  width: 6em;
+  text-align: right;
+  padding-right: 0.5em;
+}
+
+.input {
+  width: 6em;
+  margin: 0;
+}
+
+#maindiv {
+  height: 34em;
+  width: 45em;
+}
+
+#mainCanvas {
+  background: rgb(10,37,91) url('resource/background.jpg') no-repeat;
+  -webkit-background-size: 45em 34em;
+  -moz-background-size: 45em 34em;
+  -o-background-size: 45em 34em;
+  background-size: 45em 34em;
+  height: 34em;
+  width: 45em;
+  border: 0.5em solid rgba(230,230,230,0.5);
+  border-radius: 1em;
+}
+
+#thumbCanvas {
+  background: rgb(10,37,91) url('resource/background.jpg') no-repeat;
+  -webkit-background-size: 8em 6em;
+  -moz-background-size: 8em 6em;
+  -o-background-size: 8em 6em;
+  background-size: 8em 6em;
+  height: 6em;
+  width: 8em;
+}
