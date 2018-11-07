@@ -88,14 +88,12 @@ body {
   filter: brightness(120%) contrast(1.2);
 }
 
-.label {
-  width: 6em;
-  text-align: right;
-  padding-right: 0.5em;
+#level {
+  font-size: 2em;
 }
 
-.input {
-  width: 6em;
+#percent {
+  font-size: 3em;
   margin: 0;
 }
 
