@@ -1,18 +1,13 @@
-Copyright: 2018 Georgios Piskopanis, Artemis Georgopoulou
+Copyright: 2018 Artemis Georgopoulou, Georgios Piskopanis
 License: CC BY-NC-SA 4.0
 Files:
 bar_about.svg
+bar_fullsceen.svg
 bar_help.svg
 bar_home.svg
 bar_next.svg
 bar_previous.svg
-
-Copyright: https://commons.wikimedia.org/wiki/File:Arctic_Project_SVG.svg, 2008
-License: CC BY-SA 3.0
-Files:
-earth.svg
-
-Copyright: https://www.freepik.com/free-vector/night-landscape-background-with-big-moon_1084495.htm, 2017
-License: Freepik
-Files:
-moon.svg
+TODO:
+background.jpg
+body.jpg
+foreground.jpg
