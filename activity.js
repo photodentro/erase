@@ -4,6 +4,12 @@ SPDX-License-Identifier: CC-BY-SA-4.0
 */
 var act = null;  // activity object, see initActivity()
 
+function onError(message, source, lineno, colno, error) {
+  alert(sformat('Σφάλμα προγραμματιστή!\n'
+    + 'message: {}\nsource: {}\nlineno: {}\ncolno: {}\nerror: {}',
+  message, source, lineno, colno, error));
+}
+
 // ES6 string templates don't work in old Android WebView
 function sformat(format) {
   var args = arguments;
@@ -24,18 +30,39 @@ function ge(element) {
   return document.getElementById(element);
 }
 
-function onPrevious(event) {
-  initActivity();
+function onResize(event) {
+  var w = window.innerWidth;
+  var h = window.innerHeight;
+  if (w / h < 640 / 360) {
+    document.body.style.fontSize = sformat('{}px', 10 * w / 640);
+  } else {
+    document.body.style.fontSize = sformat('{}px', 10 * h / 360);
+  }
 }
 
-function onNext(event) {
-  initActivity();
+function doPreventDefault(event) {
+  event.preventDefault();
 }
 
-function onToggleFullScreen(event) {
+function onHome(event) {
+  window.history.back();
+}
+
+function onHelp(event) {
+  ge('help').style.display = 'flex';
+}
+
+function onHelpHide(event) {
+  ge('help').style.display = '';
+}
+
+function onAbout(event) {
+  window.open('credits/index_DS_II.html');
+}
+
+function onFullScreen(event) {
   var doc = window.document;
   var docEl = doc.documentElement;
-
   var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen
     || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
   var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen
@@ -49,16 +76,12 @@ function onToggleFullScreen(event) {
   }
 }
 
-function onHome(event) {
-  window.history.back();
+function onPrevious(event) {
+  initLevel(act.level - 1);
 }
 
-function onHelp(event) {
-  alert('Κουνήστε το ποντίκι πάνω από την εικόνα για να αποκαλύψετε το φόντο της.');
-}
-
-function onAbout(event) {
-  window.open('credits/index_DS_II.html');
+function onNext(event) {
+  initLevel(act.level + 1);
 }
 
 function drawLine(pt1, pt2) {
@@ -129,17 +152,13 @@ function localCoords(event) {
 }
 
 function onMouseOver(event) {
-  if (act) {
-    act.pt = localCoords(event);
-    drawLine(act.pt, act.pt);
-  }
+  act.pt = localCoords(event);
+  drawLine(act.pt, act.pt);
 }
 
 function onMouseOut(event) {
-  if (act) {
-    drawLine(act.pt, localCoords(event));
-    act.pt = { x: -1, y: -1 };
-  }
+  drawLine(act.pt, localCoords(event));
+  act.pt = { x: -1, y: -1 };
 }
 
 function onMouseMove(event) {
@@ -150,12 +169,16 @@ function onMouseMove(event) {
 }
 
 function touchToMouseEvent(event, strMouseEvent) {
-  var touch = event.touches[0];
-  var mouseEvent = new MouseEvent(strMouseEvent, {
-    clientX: touch.clientX,
-    clientY: touch.clientY,
-  });
+  var mouseEvent;
 
+  if (strMouseEvent !== 'mouseup') {
+    act.mouseX = event.touches[0].clientX;
+    act.mouseY = event.touches[0].clientY;
+  }
+  mouseEvent = new MouseEvent(strMouseEvent, {
+    clientX: act.mouseX,
+    clientY: act.mouseY,
+  });
   act.canvas.dispatchEvent(mouseEvent);
 }
 
@@ -171,55 +194,76 @@ function onTouchEnd(event) {
   touchToMouseEvent(event, 'mouseup');
 }
 
-function onResize() {
-  var w = window.innerWidth;
-  var h = window.innerHeight;
-  if (w / h < 640 / 360) {
-    document.body.style.fontSize = sformat('{}px', 10 * w / 640);
-  } else {
-    document.body.style.fontSize = sformat('{}px', 10 * h / 360);
-  }
+function initLevel(newLevel) {
+  // Internal level number is zero-based; but we display it as 1-based.
+  // We allow/fix newLevel if it's outside its proper range.
+  var numLevels = 4;
+  var ctc;
+  var ctt;
+
+  act.level = (newLevel + numLevels) % numLevels;
+  ctc = act.canvas.getContext('2d');
+  ctc.globalCompositeOperation = 'copy';
+  ctc.globalAlpha = act.alphas[act.level];
+  ge('mainCanvas').style.backgroundImage = sformat('url(resource/background{}.jpg)', act.level);
+  ge('thumbCanvas').style.backgroundImage = ge('mainCanvas').style.backgroundImage;
+  ctc.drawImage(act.foregrounds[act.level], 0, 0, ctc.canvas.width, ctc.canvas.height);
+  ctt = act.thumb.getContext('2d');
+  ctt.globalCompositeOperation = 'copy';
+  ctt.clearRect(0, 0, ctt.canvas.width, ctt.canvas.height);
+  ge('percent').innerHTML = '0%';
+  ge('level').innerHTML = act.level + 1;
 }
 
-function addEvents() {
-  document.body.onresize = onResize;
-  ge('bar_previous').onclick = onPrevious;
-  ge('bar_next').onclick = onNext;
-  ge('bar_home').onclick = onHome;
-  ge('bar_fullscreen').onclick = onToggleFullScreen;
-  ge('bar_help').onclick = onHelp;
-  ge('bar_about').onclick = onAbout;
+function initActivity() {
+  var i;
+
+  act = {
+    level: 0,
+    pt: { x: -1, y: -1 },
+    thumb: ge('thumbCanvas'),
+    canvas: ge('mainCanvas'),
+    alphas: [0.8, 1, 1],
+    backgrounds: [],
+    foregrounds: [],
+    mouseX: 0,  // The ontouchend event doesn't contain any coords,
+    mouseY: 0,  // so we keep the last ontouchmove ones.
+  };
+  onResize();
+  // Image preloading
+  for (i = 0; i < 4; i += 1) {
+    act.backgrounds.push(new Image());
+    act.backgrounds[i].src = sformat('resource/background{}.jpg', i);
+    act.foregrounds.push(new Image());
+    act.foregrounds[i].src = sformat('resource/foreground{}.jpg', i);
+  }
+  ge('foreground').src = act.foregrounds[1].src;
   ge('mainCanvas').onmouseover = onMouseOver;
   ge('mainCanvas').onmouseout = onMouseOut;
   ge('mainCanvas').onmousemove = onMouseMove;
   ge('mainCanvas').ontouchstart = onTouchStart;
   ge('mainCanvas').ontouchmove = onTouchMove;
   ge('mainCanvas').ontouchend = onTouchEnd;
+  document.body.onresize = onResize;
+  document.body.oncontextmenu = doPreventDefault;
+  ge('bar_home').onclick = onHome;
+  ge('bar_help').onclick = onHelp;
+  ge('help').onclick = onHelpHide;
+  ge('bar_about').onclick = onAbout;
+  ge('bar_fullscreen').onclick = onFullScreen;
+  ge('bar_previous').onclick = onPrevious;
+  ge('bar_next').onclick = onNext;
+  for (i = 0; i < document.images.length; i += 1) {
+    document.images[i].ondragstart = doPreventDefault;
+  }
+  initLevel(act.level);
 }
 
-function initActivity() {
-  var ctc;
-  var ctt;
-  var img;
-
-  if (!act) {  // first run
-    addEvents();
-  }
-  act = {
-    pt: { x: -1, y: -1 },
-    thumb: ge('thumbCanvas'),
-    canvas: ge('mainCanvas'),
-  };
-  ctc = act.canvas.getContext('2d');
-  ctc.globalCompositeOperation = 'copy';
-  ctc.globalAlpha = 0.8;
-  img = ge('foreground');
-  ctc.drawImage(img, 0, 0, ctc.canvas.width, ctc.canvas.height);
-  ctt = act.thumb.getContext('2d');
-  ctt.globalCompositeOperation = 'copy';
-  ctt.clearRect(0, 0, ctt.canvas.width, ctt.canvas.height);
-  ge('percent').innerHTML = '0%';
+window.onerror = onError;
+window.onload = initActivity;
+// Call onResize even before the images are loaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', onResize);
+} else {  // `DOMContentLoaded` already fired
   onResize();
 }
-
-window.onload = initActivity;

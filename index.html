@@ -5,18 +5,18 @@ SPDX-License-Identifier: CC-BY-SA-4.0
 -->
 <html lang="el" class="fvp">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8">
   <title>Σβήσιμο οθόνης με σύρσιμο του ποντικιού</title>
   <link rel="stylesheet" type="text/css" href="activity.css">
   <script src="activity.js"></script>
 </head>
 <body class="fvp fhp">
 <div id="topdiv">
-  <div id="sidediv" class="fvp">
+  <div id="menubar" class="fvp">
     <div class="fvc fhp">
-      <img id="bar_previous" src="resource/bar_previous.svg" alt="Προηγούμενο" title="Προηγούμενο" class="menuicon">
+      <img id="bar_previous" src="resource/bar_previous.svg" alt="Προηγούμενο" title="Προηγούμενο">
       <p id="level">#1</p>
-      <img id="bar_next" src="resource/bar_next.svg" alt="Επόμενο" title="Επόμενο" class="menuicon">
+      <img id="bar_next" src="resource/bar_next.svg" alt="Επόμενο" title="Επόμενο">
     </div>
     <div class="fvc fhp">
       <canvas id="thumbCanvas" width="8" height="6">
@@ -27,20 +27,21 @@ SPDX-License-Identifier: CC-BY-SA-4.0
       <p id="percent">0%</p>
     </div>
     <div class="fvc fhp">
-      <img id="bar_home" src="resource/bar_home.svg" alt="Αρχική" title="Επιστροφή στην αρχική σελίδα" class="menuicon">
-      <img id="bar_fullscreen" src="resource/bar_fullscreen.svg" alt="Πλήρης οθόνη" title="Πλήρης οθόνη" class="menuicon">
+      <img id="bar_home" src="resource/bar_home.svg" alt="Αρχική" title="Επιστροφή στην αρχική σελίδα">
+      <img id="bar_fullscreen" src="resource/bar_fullscreen.svg" alt="Πλήρης οθόνη" title="Πλήρης οθόνη">
     </div>
     <div class="fvc fhp">
-      <img id="bar_help" src="resource/bar_help.svg" alt="Βοήθεια" title="Βοήθεια" class="menuicon">
-      <img id="bar_about" src="resource/bar_about.svg" alt="Περί" title="Περί" class="menuicon">
+      <img id="bar_help" src="resource/bar_help.svg" alt="Βοήθεια" title="Βοήθεια">
+      <img id="bar_about" src="resource/bar_about.svg" alt="Περί" title="Περί">
     </div>
   </div>
   <div id="maindiv" class="fvp fhp">
     <canvas id="mainCanvas" width="800" height="600">
       Your browser doesn't support HTML5!
     </canvas>
-    <img id="foreground" src="resource/foreground.jpg" class="hidden">
+    <img id="foreground" src="resource/foreground0.jpg" alt="" class="hidden">
   </div>
 </div>
+<div id="help"><div class="dialog">Κουνήστε το ποντίκι πάνω από την εικόνα για να αποκαλύψετε το φόντο της.</div></div>
 </body>
 </html>

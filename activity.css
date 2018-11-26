@@ -66,60 +66,107 @@ body {
   text-align: center;
 }
 
-#sidediv {
-  background-color: rgba(200,230,125,0.9);
-  border: 0.5em solid rgba(100,115,67,0.25);
-  border-radius: 1em;
-  height: 34em;
-  width: 15em;
-  padding: 1em;
-}
-
-.menuicon {
-  width: 4em;
-  height: 4em;
-  cursor: pointer;
-  border: 0.2em solid transparent;
-}
-
-.menuicon:hover {
-  border-: 0.2em solid skyblue;
-  -webkit-filter: brightness(120%) contrast(1.2);
-  filter: brightness(120%) contrast(1.2);
-}
-
-#level {
-  font-size: 2em;
-}
-
-#percent {
-  font-size: 3em;
-  margin: 0;
-}
-
 #maindiv {
   height: 34em;
   width: 45em;
+  -webkit-animation: menubar_animation;
+  animation-name: menubar_animation;
+  -webkit-animation-duration: 4s;
+  animation-duration: 4s;
 }
 
 #mainCanvas {
-  background: rgb(10,37,91) url('resource/background.jpg') no-repeat;
-  -webkit-background-size: 45em 34em;
-  -moz-background-size: 45em 34em;
-  -o-background-size: 45em 34em;
-  background-size: 45em 34em;
-  height: 34em;
-  width: 45em;
-  border: 0.5em solid rgba(230,230,230,0.5);
+  background: rgb(10,37,91) url('resource/background0.jpg') no-repeat center center;
+  -webkit-background-size: 44em 33em;
+  -moz-background-size: 44em 33em;
+  -o-background-size: 44em 33em;
+  background-size: 44em 33em;
+  height: 33em;
+  width: 44em;
+  border: 0.5em solid rgba(179,202,115,1);
+  box-sizing: content-box;  /* Otherwise some background is hidden under the canvas */
   border-radius: 1em;
 }
 
 #thumbCanvas {
-  background: rgb(10,37,91) url('resource/background.jpg') no-repeat;
+  background: rgb(10,37,91) url('resource/background0.jpg') no-repeat;
   -webkit-background-size: 8em 6em;
   -moz-background-size: 8em 6em;
   -o-background-size: 8em 6em;
   background-size: 8em 6em;
   height: 6em;
   width: 8em;
+}
+
+@-webkit-keyframes menubar_animation {
+  from { transform: scale(0); }
+}
+
+@keyframes menubar_animation {
+  from { transform: scale(0); }
+}
+
+#menubar {
+  height: 34em;
+  width: 15em;
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  background-color: rgba(200,230,125,0.9);
+  border: 0.5em solid rgba(100,115,67,0.25);
+  border-radius: 1em;
+  -webkit-animation: menubar_animation;
+  animation-name: menubar_animation;
+  -webkit-animation-duration: 4s;
+  animation-duration: 4s;
+}
+
+#menubar img {
+  width: 3.5em;
+  height: 3.5em;
+  margin: 0.5em;
+  cursor: pointer;
+}
+
+#menubar img:hover {
+  -webkit-filter: brightness(120%) contrast(1.2);
+  filter: brightness(120%) contrast(1.2);
+  transform: scale(1.1);
+}
+
+#menubar img:active {
+  -webkit-filter: brightness(80%) contrast(1.2) !important;
+  filter: brightness(80%) contrast(1.2) !important;
+  transform: scale(1);
+}
+
+#menubar p {
+  display: inline;
+  font-size: 3em;
+  margin: 0;
+}
+
+#help {
+  display: none;  /* javascript toggles that to flex */
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  background-color: rgba(63,63,63,0.5);
+  width: 100%;
+  height: 100%;
+  top: 0;  /* IE and old webview ignore "fixed" for flex childs */
+  left: 0;
+}
+
+#help .dialog {
+  text-align: center;
+  width: 19em;
+  background-color: rgb(255,255,255);
+  color: rgb(0,0,0);
+  padding: 1em;
+  border: 0.2em solid rgb(80,80,80);
+  border-radius: 0.5em;
+  -webkit-filter: drop-shadow(0.5em 0.5em 0.5em rgb(80,80,80));
+  filter: drop-shadow(0.5em 0.5em 0.5em rgb(80,80,80));
+  font-size: 2em;
 }

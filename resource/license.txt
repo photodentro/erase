@@ -2,12 +2,22 @@ Copyright: 2018 Artemis Georgopoulou, Georgios Piskopanis
 License: CC BY-NC-SA 4.0
 Files:
 bar_about.svg
-bar_fullsceen.svg
+bar_fullscreen.svg
 bar_help.svg
 bar_home.svg
 bar_next.svg
 bar_previous.svg
-TODO:
-background.jpg
-body.jpg
-foreground.jpg
+
+Copyright: 2018, see source below, Artemis Georgopoulou
+License: Public domain
+Files:
+body.jpg: https://www.dreamstime.com/royalty-free-stock-photography-cute-mice-seamless-background-image19765937
+background0.jpg: https://pixabay.com/en/dolomites-sassolungo-mountains-2191659/
+foreground0.jpg: https://pixabay.com/en/raindrops-rain-wet-droplets-grey-933424/
+background1.jpg: https://en.wikipedia.org/wiki/File:Gioconda_(copia_del_Museo_del_Prado_restaurada).jpg
+foreground1.jpg: https://en.wikipedia.org/wiki/File:Copy_of_La_Gioconda_-_Leonardo_da_Vinci's_apprentice.jpg
+background2.jpg: https://fotosolution.com/photoshop-tutorial-turn-day-night/
+foreground2.jpg: https://fotosolution.com/photoshop-tutorial-turn-day-night/
+background3.jpg: http://followtheart.info/kareff-Sun_25_9.html
+foreground3.jpg: http://followtheart.info/kareff-Sun_25_9.html
+
