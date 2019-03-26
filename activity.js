@@ -50,6 +50,7 @@ function onHome(event) {
 
 function onHelp(event) {
   ge('help').style.display = 'flex';
+  ge('helpaudio').play();
 }
 
 function onHelpHide(event) {
