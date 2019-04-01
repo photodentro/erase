@@ -50,7 +50,7 @@ input, select, range, p {
 }
 
 body {
-  background: rgb(10,37,91) url('resource/body.jpg') repeat;
+  background: rgb(10,37,91) url('resource/body.svg') repeat;
   color: white;
   font-size: 10px;
   margin: 0;

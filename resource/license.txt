@@ -11,7 +11,7 @@ bar_previous.svg
 Copyright: 2018, see source below, Artemis Georgopoulou
 License: Public domain
 Files:
-body.jpg: https://www.dreamstime.com/royalty-free-stock-photography-cute-mice-seamless-background-image19765937
+body.svg: https://www.freepik.com/free-vector/cartoon-mice-collection_1588314.htm
 background0.jpg: https://pixabay.com/en/dolomites-sassolungo-mountains-2191659/
 foreground0.jpg: https://pixabay.com/en/raindrops-rain-wet-droplets-grey-933424/
 background1.jpg: https://en.wikipedia.org/wiki/File:Gioconda_(copia_del_Museo_del_Prado_restaurada).jpg
